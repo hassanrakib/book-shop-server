@@ -48,6 +48,7 @@ async function run() {
       const result = await users.insertOne(newUser);
       res.json(result);
     });
+    
   } finally {
     // close the connection after completing the task
     // client.close();
