@@ -35,15 +35,18 @@ async function run() {
     });
 
     // get a user from db
-    app.get("/users/:userId", (req, res) => {
-      console.log(req.params);
-      res.json(req.params);
+    app.get("/users/:userId", async (req, res) => {
+      const uid = req.params.userId;
+      const query = { uid };
+      const user = await users.findOne(query);
+      res.json(user);
     });
 
     // add a new user to db
-    app.post("/users", (req, res) => {
+    app.post("/users", async (req, res) => {
       const newUser = req.body;
-      console.log(newUser);
+      const result = await users.insertOne(newUser);
+      res.json(result);
     });
   } finally {
     // close the connection after completing the task
