@@ -48,7 +48,14 @@ async function run() {
       const result = await users.insertOne(newUser);
       res.json(result);
     });
-    
+
+    // update the cart of a user
+    app.put("/users/:userId/cart", async (req, res) => {
+      const filter = { uid: req.params.userId };
+      const updateCart = { $set: { cart: req.body.updatedCart } };
+      const result = await users.updateOne(filter, updateCart);
+      res.json(result);
+    });
   } finally {
     // close the connection after completing the task
     // client.close();
