@@ -48,8 +48,11 @@ async function run() {
     // get a user from db
     app.get("/users/:userId", async (req, res) => {
       const uid = req.params.userId;
+      const options = {
+        projection: { _id: 0},
+      };
       const query = { uid };
-      const user = await users.findOne(query);
+      const user = await users.findOne(query, options);
       res.json(user);
     });
 
