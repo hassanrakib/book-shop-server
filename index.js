@@ -34,6 +34,17 @@ async function run() {
       res.json(booksToSend);
     });
 
+    // get a single book
+    app.get("/books/:bookId", async (req, res) => {
+      const id = parseInt(req.params.bookId);
+      const query = { id };
+      const options = {
+        projection: { _id: 0, author: 0, img: 0 },
+      };
+      const book = await books.findOne(query, options);
+      res.json(book);
+    });
+
     // get a user from db
     app.get("/users/:userId", async (req, res) => {
       const uid = req.params.userId;
